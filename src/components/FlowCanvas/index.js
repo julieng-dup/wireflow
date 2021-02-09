@@ -6,6 +6,8 @@ const FlowCanvas = () => {
   const [edge, setEdge] = useState({});
   const [oncanvas, setOnCanvas] = useState(false);
 
+  const [data, setData] = useState({});
+
   const mouseEvent = async (e) => {
     const event = await e;
     const EVENT_TYPE = e._type;

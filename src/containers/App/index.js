@@ -18,6 +18,7 @@ import FlowItemPanel from '../../components/FlowItemPanel';
 import FlowDetailPanel from '../../components/FlowDetailPanel';
 import FlowMiniMap from '../../components/FlowMiniMap';
 import ExportCanvas from '../../components/ExportCanvas';
+import Backup from "../../components/Backup/index";
 
 GGEditor.setTrackable(false);
 
@@ -57,6 +58,7 @@ const App = () => {
         </Row>
         <NodeRegisteWithHeader />
         <NodeRegisteWithoutHeader />
+        <Backup />
       </GGEditor>
     </Layout>
   );
