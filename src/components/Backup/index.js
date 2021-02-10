@@ -5,10 +5,9 @@ import './style.css';
 import {CloseOutlined, DownloadOutlined, FolderOpenOutlined, SaveOutlined} from "@ant-design/icons";
 import Button from "antd/es/button";
 import Open from "./Open";
-import Save from "./Save";
 
 const Backup = (props) => {
-  const [display, setDisplay] = useState(false);
+  const [display, setDisplay] = useState(true);
   const [data, setData] = useState(null);
 
   const {propsAPI} = props;
@@ -27,7 +26,8 @@ const Backup = (props) => {
     );
   }
 
-  function saveProject(projectData) {
+  function saveProject() {
+    const projectData = propsAPI.save();
     const newProject = {name: document.getElementById('backupName').value, data: projectData};
     const d = [...data, newProject];
     setData(d);
@@ -66,6 +66,7 @@ const Backup = (props) => {
   return (
     <ContextMenu>
       <div className={'backup-container'}>
+        <h2>Load existing project</h2>
         <Button
           onClick={() => setDisplay(false)}
           icon={<CloseOutlined/>}
@@ -73,25 +74,29 @@ const Backup = (props) => {
         />
         {
           data && data.map((project, id) => (
-            <div key={id}>
-              <a onClick={(e) => loadProject(e.target.innerText)}>{project.name}</a>
+            <div key={id} className={'backup-project'}>
               <Button
               icon={<DownloadOutlined/>}
               onClick={(e) => {DownloadProject(project.name)}}
               />
+              <a onClick={(e) => loadProject(e.target.innerText)}>{project.name}</a>
             </div>
           ))
         }
+        <h2>Save new project</h2>
         <div>
           <input type={'text'} id={'backupName'}/>
-          <Save saveAction={saveProject}/>
+          <Button
+            onClick={() => saveProject()}
+            icon={<SaveOutlined/>}
+          />
         </div>
+        <h2>Load project from file</h2>
         <div>
           <input type={'file'} id={'loadBackupFile'}/>
           <Button
             onClick={() => loadFromFile()}
             icon={<FolderOpenOutlined/>}
-            className={''}
           />
         </div>
       </div>

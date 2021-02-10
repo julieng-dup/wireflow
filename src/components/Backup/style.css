@@ -1,16 +1,18 @@
 .backup-container {
   width: 60vw;
   height: 60vh;
-  background-color: darkgrey;
+  background-color: #cecece;
   position: absolute;
   top: 0;
   margin-top: 20vh;
   margin-left: 20vw;
+  padding: 4em;
 }
 
 .backup-closeButton {
   position: absolute;
   right: 0;
+  top:0;
 
   background: none;
   border: none;
@@ -21,4 +23,17 @@
   position: absolute;
   right: 0;
   top:0;
+}
+
+.backup-project {
+  display: flex;
+}
+
+.backup-project a {
+  margin-left: .5em;
+}
+
+.backup-project button {
+  background: none;
+  border: none;
 }
