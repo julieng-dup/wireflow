@@ -1,0 +1,24 @@
+.backup-container {
+  width: 60vw;
+  height: 60vh;
+  background-color: darkgrey;
+  position: absolute;
+  top: 0;
+  margin-top: 20vh;
+  margin-left: 20vw;
+}
+
+.backup-closeButton {
+  position: absolute;
+  right: 0;
+
+  background: none;
+  border: none;
+  color: white;
+}
+
+.backup-openButton {
+  position: absolute;
+  right: 0;
+  top:0;
+}
