@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import {ContextMenu, withPropsAPI} from "gg-editor";
 
 import './style.css';
-import {CloseOutlined, DownloadOutlined, FolderOpenOutlined, SaveOutlined} from "@ant-design/icons";
+import {CloseOutlined, DeleteOutlined, DownloadOutlined, FolderOpenOutlined, SaveOutlined} from "@ant-design/icons";
 import Button from "antd/es/button";
 import Open from "./Open";
 
@@ -51,6 +51,14 @@ const Backup = (props) => {
     tmpA.remove();
   }
 
+  function DeleteProject(projectName) {
+    if(window.confirm('Are you sure to delete ' + projectName + ' ?')) {
+      const d = data.filter((p) => p.name !== projectName);
+      setData(d);
+      localStorage.setItem('wireflow-backup', JSON.stringify(d));
+    }
+  }
+
   function loadFromFile() {
     const file = document.getElementById('loadBackupFile');
 
@@ -75,6 +83,10 @@ const Backup = (props) => {
         {
           data && data.map((project, id) => (
             <div key={id} className={'backup-project'}>
+              <Button
+                icon={<DeleteOutlined/>}
+                onClick={(e) => {DeleteProject(project.name)}}
+              />
               <Button
               icon={<DownloadOutlined/>}
               onClick={(e) => {DownloadProject(project.name)}}
