@@ -7,7 +7,7 @@ import Button from "antd/es/button";
 import Open from "./Open";
 
 const Backup = (props) => {
-  const [display, setDisplay] = useState(true);
+  const [display, setDisplay] = useState(false);
   const [data, setData] = useState(null);
 
   const {propsAPI} = props;
