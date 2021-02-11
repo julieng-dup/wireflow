@@ -2,9 +2,17 @@ import React, {useState, useEffect} from "react";
 import {ContextMenu, withPropsAPI} from "gg-editor";
 
 import './style.css';
-import {CloseOutlined, DeleteOutlined, DownloadOutlined, FolderOpenOutlined, SaveOutlined} from "@ant-design/icons";
+import {
+  CloseOutlined,
+  DeleteOutlined,
+  DownloadOutlined,
+  FileImageOutlined,
+  FolderOpenOutlined,
+  SaveOutlined
+} from "@ant-design/icons";
 import Button from "antd/es/button";
 import Open from "./Open";
+import * as htmlToImage from "html-to-image";
 
 const Backup = (props) => {
   const [display, setDisplay] = useState(false);
@@ -17,8 +25,7 @@ const Backup = (props) => {
         const d = localStorage.getItem('wireflow-backup') === null ? [] : JSON.parse(localStorage.getItem('wireflow-backup'));
         setData(d);
       }
-    }
-  );
+    }, [data]);
 
   if (display === false) {
     return (
@@ -71,6 +78,18 @@ const Backup = (props) => {
     reader.readAsText(file.files[0]);
   }
 
+  function exportToImage() {
+    htmlToImage
+      .toJpeg(document.getElementById('canvas_1'), { quality: 1 })
+      .then(function (dataUrl) {
+        const link = document.createElement('a');
+        link.download = 'wireflow.jpg';
+        link.href = dataUrl;
+        link.click();
+        link.remove();
+      });
+  }
+
   return (
     <ContextMenu>
       <div className={'backup-container'}>
@@ -91,16 +110,23 @@ const Backup = (props) => {
               icon={<DownloadOutlined/>}
               onClick={(e) => {DownloadProject(project.name)}}
               />
-              <a onClick={(e) => loadProject(e.target.innerText)}>{project.name}</a>
+              <a href={''} onClick={(e) => loadProject(e.target.innerText)}>{project.name}</a>
             </div>
           ))
         }
-        <h2>Save new project</h2>
+        <h2>Save as new project</h2>
         <div>
           <input type={'text'} id={'backupName'}/>
           <Button
             onClick={() => saveProject()}
             icon={<SaveOutlined/>}
+          />
+        </div>
+        <h2>Save as image</h2>
+        <div>
+          <Button
+            onClick={() => exportToImage()}
+            icon={<FileImageOutlined/>}
           />
         </div>
         <h2>Load project from file</h2>
